@@ -109,19 +109,56 @@ def convert_board(board):
     
     return new_board
 
-def ai_move():
-    numeric_board = convert_board(board) #convert board into numeric values
+# def ai_move():
+#     numeric_board = convert_board(board) #convert board into numeric values
 
+#     best_move = None
+#     best_score = -1 #range of probability(0 to 1)
+
+#     for i in range(9):
+#         if board[i] == "":
+#             temp = numeric_board.copy()
+#             temp[i] = -1   # AI = O
+
+#             temp_df = pd.DataFrame([temp], columns=feature_names)
+#             prob = model.predict_proba(temp_df)[0][1]
+
+#             if prob > best_score:
+#                 best_score = prob
+#                 best_move = i
+
+#     return best_move
+
+def ai_move():
+    numeric_board = convert_board(board)
+
+    # 1. Check if AI can win
+    for i in range(9):
+        if board[i] == "":
+            temp = board.copy()
+            temp[i] = "O"
+            if check_winner_sim(temp, "O"):
+                return i
+
+    # 2. Block player win
+    for i in range(9):
+        if board[i] == "":
+            temp = board.copy()
+            temp[i] = "X"
+            if check_winner_sim(temp, "X"):
+                return i
+
+    # 3. Use ML
     best_move = None
-    best_score = -1 #range of probability(0 to 1)
+    best_score = -1
 
     for i in range(9):
         if board[i] == "":
             temp = numeric_board.copy()
-            temp[i] = -1   # AI = O
+            temp[i] = -1
 
             temp_df = pd.DataFrame([temp], columns=feature_names)
-            prob = model.predict_proba(temp_df)[0][1]
+            prob = model.predict_proba(temp_df)[0][0]
 
             if prob > best_score:
                 best_score = prob
@@ -129,17 +166,18 @@ def ai_move():
 
     return best_move
 
+
 def check_winner():
     global player_score, ai_score
-    win_conditions = [
-        [0,1,2],[3,4,5],[6,7,8],# rows
-        [0,3,6],[1,4,7],[2,5,8],# columns
-        [0,4,8],[2,4,6]# diagonals
-    ]# writing all the wining conditions of the player
 
-    for cond in win_conditions:
-        a,b,c = cond# if cond = [0,1,2] then a = 0,b = 1 and c = 2
-        if board[a] == board[b] == board[c] and board[a] != "":#Check if the board's places has same sign(X or O)
+    win_conditions = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+    ]
+
+    for a,b,c in win_conditions:
+        if board[a] == board[b] == board[c] and board[a] != "":
             
             if board[a] == "X":
                 player_score += 1
@@ -150,10 +188,25 @@ def check_winner():
                 l2f2.configure(text=str(ai_score))
                 result_label.configure(text="AI Wins!")
 
-            disable_buttons()#Disabled buttons after the winner is declared...
+            disable_buttons()
             return True
 
     return False
+
+def check_winner_sim(temp_board, player):
+    win_conditions = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+    ]
+
+    for a,b,c in win_conditions:
+        if temp_board[a] == temp_board[b] == temp_board[c] == player:
+            return True
+
+    return False
+
+
 
 def check_draw():
     if "" not in board:
