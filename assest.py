@@ -1,0 +1,8 @@
+THEME_ICON_LIGHT = "./logos/dark_mode.png"
+THEME_ICON_DARK = "./logos/light_mode.png"
+POWER_ICON = "./logos/power_button.png"
+GAME_LOGO = "./logos/tic-tac-toe.png"
+RESET_ICON = "./logos/reset.png"
+CROSS_ICON = "./logos/cross.png"
+CIRCLE_ICON = "./logos/circle.png"
+LEFT_ARROW_ICON = "./logos/left_arrow.png"

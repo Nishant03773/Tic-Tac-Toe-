@@ -1,0 +1,11 @@
+pandas
+scikit-learn
+customtkinter
+seaborn
+customtkinter
+matplotlib
+numpy
+pandas
+pillow
+scikit-learn
+seaborn
