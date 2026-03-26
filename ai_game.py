@@ -279,7 +279,7 @@ class Game:
                 temp = numeric_board.copy()
                 temp[i] = -1
                 temp_df = pd.DataFrame([temp], columns=self.feature_names)
-                prob = self.model.predict_proba(temp_df)[0][0]
+                prob = self.model.predict_proba(temp_df)[0][1]
                 if prob > best_score:
                     best_score = prob
                     best_move = i
