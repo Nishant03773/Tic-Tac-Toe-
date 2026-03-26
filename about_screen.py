@@ -7,6 +7,7 @@ from config import (
     ACCENT, ACCENT_LIGHT, WIN_COLOR, DRAW_COLOR, LOSE_COLOR
 )
 from assest import *
+from components import *
 
 
 RULES = [
@@ -30,39 +31,43 @@ class AboutScreen:
     def __init__(self, parent, switch_back_callback, close_app, btn_manager):
         self.frame = CTkFrame(parent, fg_color=(LIGHT_BG, DARK_BG))
         self.btn_manager = btn_manager
+        self.topbar = TopBar(self.frame, DEFAULT_BUTTON_THEME, close_app, self.btn_manager)
+        self.return_image = CTkImage(Image.open(LEFT_ARROW_ICON), size=(20, 20))
+        self.topbar.f1b2.configure(command=switch_back_callback, image=self.return_image)
 
-        self._build_topbar(switch_back_callback, close_app)
+
+        # self._build_topbar(switch_back_callback, close_app)
         self._build_content()
 
-    def _build_topbar(self, switch_back_callback, close_app):
-        from PIL import Image as _Image
-        bar = CTkFrame(self.frame, fg_color="transparent", height=52)
-        bar.pack(pady=(16, 0), padx=20, fill="x")
-        bar.pack_propagate(False)
+    # def _build_topbar(self, switch_back_callback, close_app):
+    #     from PIL import Image as _Image
+    #     bar = CTkFrame(self.frame, fg_color="transparent", height=52)
+    #     bar.pack(pady=(16, 0), padx=20, fill="x")
+    #     bar.pack_propagate(False)
 
-        back_img = CTkImage(_Image.open(LEFT_ARROW_ICON), size=(20, 20))
-        back_btn = CTkButton(
-            bar,
-            height=40, width=40,
-            text="",
-            image=back_img,
-            command=switch_back_callback,
-            **DEFAULT_BUTTON_THEME
-        )
-        back_btn.pack(side=LEFT)
-        self.btn_manager.add(back_btn)
+    #     back_img = CTkImage(_Image.open(LEFT_ARROW_ICON), size=(20, 20))
+    #     back_btn = CTkButton(
+    #         bar,
+    #         height=40, width=40,
+    #         text="",
+    #         image=back_img,
+    #         command=switch_back_callback,
+    #         **DEFAULT_BUTTON_THEME
+    #     )
+        # back_btn.pack(side=LEFT)
+        # self.btn_manager.add(back_btn)
 
-        power_img = CTkImage(_Image.open(POWER_ICON), size=(20, 20))
-        power_btn = CTkButton(
-            bar,
-            height=40, width=40,
-            text="",
-            image=power_img,
-            command=close_app,
-            **DEFAULT_BUTTON_THEME
-        )
-        power_btn.pack(side=RIGHT)
-        self.btn_manager.add(power_btn)
+        # power_img = CTkImage(_Image.open(POWER_ICON), size=(20, 20))
+        # power_btn = CTkButton(
+        #     bar,
+        #     height=40, width=40,
+        #     text="",
+        #     image=power_img,
+        #     command=close_app,
+        #     **DEFAULT_BUTTON_THEME
+        # )
+        # power_btn.pack(side=RIGHT)
+        # self.btn_manager.add(power_btn)
 
     def _build_content(self):
         scroll = CTkScrollableFrame(
