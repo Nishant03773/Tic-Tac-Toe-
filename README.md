@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🎮 Tic-Tac-Toe
 
@@ -40,6 +40,7 @@
 This is a **feature-rich, desktop Tic-Tac-Toe application** that goes beyond the classic game. It combines a polished, modern UI with a **Machine Learning AI opponent** trained on thousands of real game states — giving players a genuinely challenging experience.
 
 The app supports two modes:
+
 - **Solo (vs AI)** — Challenge an ML-powered opponent that reasons strategically.
 - **1v1 (Player vs Player)** — Play locally against a friend on the same machine.
 
@@ -161,9 +162,9 @@ This layered approach means the AI **never misses a direct win or an obvious blo
 |---|---|
 | Algorithm | `DecisionTreeClassifier` (scikit-learn) |
 | Train / Test Split | 80% / 20% (random_state=42) |
-| Serialisation | `pickle` — saved as `model.pkl` along with feature names to avoid warnings |
+| Serialisation | `pickle` — saved as `model.pkl` along with feature names |
 
-> **Note:** Feature names are saved alongside the model (`pickle.dump((model, x.columns), ...)`) so that prediction DataFrames are correctly structured and scikit-learn doesn't raise `UserWarning` about missing feature names.
+> **Note:** Feature names are saved alongside the model (`pickle.dump((model, x.columns), ...)`) so that prediction DataFrames are correctly structured and scikit-learn does not raise `UserWarning` about missing feature names.
 
 ### EDA Graphs
 
@@ -240,6 +241,7 @@ python training.py
 ```
 
 This will:
+
 1. Load and preprocess `tic_tac_toe.csv`
 2. Train a new `DecisionTreeClassifier`
 3. Print the model accuracy to the console
@@ -310,7 +312,7 @@ All colour tokens and button styles are defined centrally in **`config.py`**, ma
 
 ### Theme Toggling
 
-The **TopBar** component (top-left button on every screen) toggles between **Dark** and **Light** mode using `customtkinter.set_appearance_mode()`. The theme change propagates instantly across all active screens via the `ButtonManager` which also updates button border widths (borders are shown only in light mode for visual contrast).
+The **TopBar** component (top-left button on every screen) toggles between **Dark** and **Light** mode using `customtkinter.set_appearance_mode()`. The theme change propagates instantly across all active screens via the `ButtonManager`, which also updates button border widths (borders are shown only in light mode for visual contrast).
 
 ---
 
@@ -353,4 +355,3 @@ Contributions, issues, and feature requests are welcome!
 Made with ❤️ using Python & CustomTkinter
 
 </div>
-]]>
